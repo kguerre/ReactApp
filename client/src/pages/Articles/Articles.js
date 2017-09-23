@@ -11,8 +11,8 @@ class Articles extends Component {
   state = {
     articles: [],
     topic: "",
-    startYear: "",
-    endYear: ""
+    start: "",
+    end: ""
   };
 
   componentDidMount() {
@@ -22,7 +22,7 @@ class Articles extends Component {
   loadArticles = () => {
     API.getArticles()
       .then(res =>
-        this.setState({ articles: res.data, topic: "", startYear: "", endYear: "" })
+        this.setState({ articles: res.data, topic: "", start: "", end: "" })
       )
       .catch(err => console.log(err));
   };
@@ -54,32 +54,25 @@ class Articles extends Component {
         <Row>
           <Col size="md-12">
             <Jumbotron>
-              <h1>Search For Articles</h1>
+              <h1 style={{ fontFamily: "Zilla Slab" }}>
+                Search For Articles
+              </h1>
             </Jumbotron>
             <form>
-              <Input value={this.state.topic} 
-              onChange={this.handleInputChange} 
-              name="topic" 
-              placeholder="Topic (required)" />
+              <Input value={this.state.topic} onChange={this.handleInputChange} name="topic" placeholder="Topic (required)" />
 
-              <Input value={this.state.startYear} 
-              onChange={this.handleInputChange} 
-              name="start-year" 
-              placeholder="Start Year ex. 1997 (required)" />
+              <Input value={this.state.start} onChange={this.handleInputChange} name="start" placeholder="Start Year ex.1997 (required)" />
 
-              <Input value={this.state.endYear} 
-              onChange={this.handleInputChange} 
-              name="end-year" 
-              placeholder="End Year ex. 2007 (required)" />
+              <Input value={this.state.end} onChange={this.handleInputChange} name="end" placeholder="End Year ex.2007 (required)" />
 
-              <FormBtn disabled={!(this.state.topic && this.state.startYear && this.state.endYear)} onClick={this.handleFormSubmit}>
+              <FormBtn disabled={!(this.state.topic && this.state.start && this.state.end)} onClick={this.handleFormSubmit}>
                 Search
               </FormBtn>
             </form>
           </Col>
           <Col size="md-12">
             <Jumbotron>
-              <h1>Results</h1>
+              <h1 style={{ fontFamily: "Zilla Slab" }}>Results</h1>
             </Jumbotron>
             {this.state.articles.length ? <List>
                 {this.state.articles.map(article => (
@@ -92,11 +85,13 @@ class Articles extends Component {
                     />
                   </ListItem>
                 ))}
-              </List> : <h3>No Results to Display</h3>}
+              </List> : <h3 style={{ fontFamily: "Arbutus Slab" }}>
+                No Results to Display
+              </h3>}
           </Col>
           <Col size="md-12">
             <Jumbotron>
-              <h1>My Saved Articles</h1>
+              <h1 style={{ fontFamily: "Zilla Slab" }}>Saved Articles</h1>
             </Jumbotron>
             {this.state.articles.length ? <List>
                 {this.state.articles.map(article => (
@@ -109,7 +104,9 @@ class Articles extends Component {
                     />
                   </ListItem>
                 ))}
-              </List> : <h3>No Results to Display</h3>}
+              </List> : <h3 style={{ fontFamily: "Arbutus Slab" }}>
+                No Results to Display
+              </h3>}
           </Col>
         </Row>
       </Container>;

@@ -1,7 +1,7 @@
 import React from "react";
 
-const Nav = () =>
-  <nav className="navbar navbar-inverse navbar-top">
+const Nav = () => (
+  <nav className="navbar navbar-inverse navbar-top" style={{ backgroundColor: "#254483", height: "120" }}>
     <div className="container-fluid">
       <div className="navbar-header">
         <button type="button" className="collapsed navbar-toggle">
@@ -10,10 +10,11 @@ const Nav = () =>
           <span className="icon-bar" />
         </button>
         <a href="/" className="navbar-brand">
-          The Other Times
+          <p style={{ fontFamily: "Sanchez", fontSize: "60" }}>The Other Times</p>
         </a>
       </div>
     </div>
-  </nav>;
+  </nav>
+);
 
 export default Nav;
