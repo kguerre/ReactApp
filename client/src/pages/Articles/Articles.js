@@ -57,28 +57,58 @@ class Articles extends Component {
               <h1>Search For Articles</h1>
             </Jumbotron>
             <form>
-              <Input value={this.state.topic} onChange={this.handleInputChange} name="topic" placeholder="Topic (required)" />
-              <Input value={this.state.startYear} onChange={this.handleInputChange} name="start-year" placeholder="Start Year ex. 1997 (required)" />
-              <Input value={this.state.endYear} onChange={this.handleInputChange} name="end-year" placeholder="End Year ex. 2007 (required)" />
+              <Input value={this.state.topic} 
+              onChange={this.handleInputChange} 
+              name="topic" 
+              placeholder="Topic (required)" />
+
+              <Input value={this.state.startYear} 
+              onChange={this.handleInputChange} 
+              name="start-year" 
+              placeholder="Start Year ex. 1997 (required)" />
+
+              <Input value={this.state.endYear} 
+              onChange={this.handleInputChange} 
+              name="end-year" 
+              placeholder="End Year ex. 2007 (required)" />
 
               <FormBtn disabled={!(this.state.topic && this.state.startYear && this.state.endYear)} onClick={this.handleFormSubmit}>
-                Submit Article
+                Search
               </FormBtn>
             </form>
+          </Col>
+          <Col size="md-12">
+            <Jumbotron>
+              <h1>Results</h1>
+            </Jumbotron>
+            {this.state.articles.length ? <List>
+                {this.state.articles.map(article => (
+                  <ListItem key={article._id}>
+                    <Link to={"/articles/" + article._id}>
+                      <strong>{article.title}</strong>
+                    </Link>
+                    <DeleteBtn
+                      onClick={() => this.deleteArticle(article._id)}
+                    />
+                  </ListItem>
+                ))}
+              </List> : <h3>No Results to Display</h3>}
           </Col>
           <Col size="md-12">
             <Jumbotron>
               <h1>My Saved Articles</h1>
             </Jumbotron>
             {this.state.articles.length ? <List>
-                {this.state.articles.map(article => <ListItem key={article._id}>
+                {this.state.articles.map(article => (
+                  <ListItem key={article._id}>
                     <Link to={"/articles/" + article._id}>
-                      <strong>
-                        {article.title}
-                      </strong>
+                      <strong>{article.title}</strong>
                     </Link>
-                    <DeleteBtn onClick={() => this.deleteArticle(article._id)} />
-                  </ListItem>)}
+                    <DeleteBtn
+                      onClick={() => this.deleteArticle(article._id)}
+                    />
+                  </ListItem>
+                ))}
               </List> : <h3>No Results to Display</h3>}
           </Col>
         </Row>
