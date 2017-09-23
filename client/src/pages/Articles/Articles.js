@@ -16,22 +16,26 @@ class Articles extends Component {
   };
 
   componentDidMount() {
-    this.loadArticles();
+    this.loadSavedArticles();
   }
 
-  loadArticles = () => {
-    API.runQuery()
-      .then(res =>
-        console.log(res)
-        // this.setState({ articles: res.data, topic: "", start: "", end: "" }
-        
-      )
-      .catch(err => console.log(err));
+  loadSavedArticles = () => {
+    // API.getBooks()
+    //   .then(res =>
+    //     this.setState({
+    //       articles: res.data,
+    //       topic: "",
+    //       start: "",
+    //       end: ""
+    //     })
+    //   )
+    //   .catch(err => console.log(err));
+    // load all saved articles
   };
 
   deleteArticle = id => {
     API.deleteArticle(id)
-      .then(res => this.loadArticles())
+      .then(res => this.loadSAvedArticles())
       .catch(err => console.log(err));
   };
 
@@ -45,10 +49,14 @@ class Articles extends Component {
   handleFormSubmit = event => {
     event.preventDefault();
     if (this.state.topic && this.state.start && this.state.end) {
-      API.saveArticle()
-        .then(res => this.loadArticles())
+      API.runQuery(this.state.topic, this.state.start, this.state.end)
+        // .then(res => console.log(res.data.response.docs))
+        .then(res => this.setState({ articles: res.data.response.docs }))
         .catch(err => console.log(err));
     }
+    console.log(this.state.articles)
+
+
   };
 
   render() {
@@ -80,7 +88,7 @@ class Articles extends Component {
                 {this.state.articles.map(article => (
                   <ListItem key={article._id}>
                     <Link to={"/articles/" + article._id}>
-                      <strong>{article.title}</strong>
+                      <strong>{article.topic}</strong>
                     </Link>
                     <DeleteBtn
                       onClick={() => this.deleteArticle(article._id)}
