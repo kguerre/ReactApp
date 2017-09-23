@@ -1,7 +1,39 @@
 import axios from "axios";
 
-export default {
-  // Gets all articles
+const API = {
+//NYT API
+
+	runQuery: (topic, start, end) => {
+
+    var apiKey = "b90a0369585147ff84a74744acfc5773";
+		const queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=" + apiKey + "&q=" + "Obama" + "&begin_date=" + "2008" + "0101&end_date=" + "2016" + "0101";
+
+		return axios.get(queryURL)
+			.then(function(response){
+
+				const newArticles = [];
+				const allArticles = response.data.response.docs;
+				const counter = 0;
+        console.log(response)
+				//Gets first 5 articles that have all 3 components
+		// 		for(let i = 0; i < allArticles.length; i++){
+
+		// 			if(counter > 4) {
+		// 				return newArticles;
+		// 			}
+
+		// 			if(allArticles[counter].headline.main && allArticles[counter].pub_date && allArticles[counter].web_url) {
+		// 				newArticles.push(allArticles[counter]);
+		// 				counter++;
+		// 			}
+		// 		}
+
+		// 		return newArticles;
+		})
+
+  
+},
+  // // Gets all articles
   getArticles: function() {
     return axios.get("/api/articles");
   },
@@ -18,3 +50,5 @@ export default {
     return axios.post("/api/articles", articleData);
   }
 };
+
+export default API;
