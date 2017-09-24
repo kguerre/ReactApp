@@ -20,7 +20,7 @@ class Articles extends Component {
   }
 
   loadSavedArticles = () => {
-    // API.getBooks()
+    // API.getArticles()
     //   .then(res =>
     //     this.setState({
     //       articles: res.data,
@@ -31,33 +31,33 @@ class Articles extends Component {
     //   )
     //   .catch(err => console.log(err));
     // load all saved articles
-  };
+  }
 
   deleteArticle = id => {
     API.deleteArticle(id)
-      .then(res => this.loadSAvedArticles())
+      .then(res => this.loadSavedArticles())
       .catch(err => console.log(err));
-  };
+  }
 
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({
       [name]: value
     });
-  };
+  }
 
   handleFormSubmit = event => {
     event.preventDefault();
     if (this.state.topic && this.state.start && this.state.end) {
       API.runQuery(this.state.topic, this.state.start, this.state.end)
         // .then(res => console.log(res.data.response.docs))
-        .then(res => this.setState({ articles: res.data.response.docs }))
+        .then(res => this.setState({ articles: res.data.response.docs, topic: "", start: "", end: "" }))
         .catch(err => console.log(err));
     }
-    console.log(this.state.articles)
+    console.log(this.state.articles);
 
 
-  };
+  }
 
   render() {
     return <Container fluid>
